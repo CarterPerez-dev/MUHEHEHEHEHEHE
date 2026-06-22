@@ -1,0 +1,185 @@
+// ===================
+// © AngelaMos | 2026
+// _tokens.scss
+// ===================
+
+// ============================================================================
+// SPACING (8px base system)
+// ============================================================================
+$space-0: 0;
+$space-px: 1px;
+$space-0-5: 0.125rem;
+$space-1: 0.25rem;
+$space-1-5: 0.375rem;
+$space-2: 0.5rem;
+$space-2-5: 0.625rem;
+$space-3: 0.75rem;
+$space-3-5: 0.875rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-7: 1.75rem;
+$space-8: 2rem;
+$space-9: 2.25rem;
+$space-10: 2.5rem;
+$space-11: 2.75rem;
+$space-12: 3rem;
+$space-14: 3.5rem;
+$space-16: 4rem;
+$space-20: 5rem;
+$space-24: 6rem;
+$space-28: 7rem;
+$space-32: 8rem;
+
+// ============================================================================
+// TYPOGRAPHY SCALE
+// ============================================================================
+$font-size-3xs: 0.625rem;
+$font-size-2xs: 0.6875rem;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
+$font-size-6xl: 4rem;
+$font-size-7xl: 5.5rem;
+$font-size-8xl: 7.5rem;
+
+// ============================================================================
+// FONT WEIGHTS
+// ============================================================================
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+// ============================================================================
+// LINE HEIGHTS
+// ============================================================================
+$line-height-none: 1;
+$line-height-tight: 1.2;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+
+// ============================================================================
+// LETTER SPACING
+// ============================================================================
+$tracking-tighter: -0.05em;
+$tracking-tight: -0.025em;
+$tracking-normal: 0;
+$tracking-wide: 0.025em;
+$tracking-wider: 0.05em;
+$tracking-mono: 0.15em;
+$tracking-mono-wide: 0.25em;
+
+// ============================================================================
+// COLORS  --  vector minimalism: near-black canvas, off-white ink,
+//             a single signal-red accent, hairline grayscale structure.
+// ============================================================================
+$white: hsl(0, 0%, 100%);
+$black: hsl(0, 0%, 0%);
+
+// Surfaces (near-black, flat, no gradients)
+$bg-page: hsl(0, 0%, 5%);
+$bg-card: hsl(0, 0%, 7%);
+$bg-landing: hsl(0, 0%, 5%);
+
+$bg-default: hsl(0, 0%, 5%);
+$bg-alternative: hsl(0, 0%, 4%);
+$bg-surface-75: hsl(0, 0%, 6.5%);
+$bg-surface-100: hsl(0, 0%, 8%);
+$bg-surface-200: hsl(0, 0%, 10%);
+$bg-surface-300: hsl(0, 0%, 12.5%);
+$bg-control: hsl(0, 0%, 9%);
+$bg-selection: hsl(0, 0%, 16%);
+$bg-overlay: hsl(0, 0%, 3%);
+$bg-overlay-hover: hsl(0, 0%, 13%);
+
+// Hairline borders (low contrast, used to draw the modular grid)
+$border-muted: hsl(0, 0%, 11%);
+$border-default: hsl(0, 0%, 17%);
+$border-strong: hsl(0, 0%, 24%);
+$border-stronger: hsl(0, 0%, 32%);
+$border-control: hsl(0, 0%, 22%);
+
+// Ink (off-white headline -> faint metadata)
+$text-default: hsl(0, 0%, 96%);
+$text-light: hsl(0, 0%, 72%);
+$text-lighter: hsl(0, 0%, 50%);
+$text-muted: hsl(0, 0%, 32%);
+
+// The one accent: signal red.
+$accent: hsl(9, 88%, 55%);
+$accent-strong: hsl(9, 92%, 62%);
+$accent-dim: hsl(9, 88%, 55%, 0.16);
+$accent-faint: hsl(9, 88%, 55%, 0.07);
+$accent-text: hsl(9, 90%, 66%);
+
+$error-default: hsl(9, 88%, 55%);
+$error-light: hsl(9, 90%, 66%);
+
+// ============================================================================
+// BORDER RADIUS  --  vector minimalism is square; radii kept tiny.
+// ============================================================================
+$radius-none: 0;
+$radius-xs: 0;
+$radius-sm: 0;
+$radius-md: 1px;
+$radius-lg: 2px;
+$radius-xl: 2px;
+$radius-full: 9999px;
+
+// ============================================================================
+// Z-INDEX SCALE
+// ============================================================================
+$z-hide: -1;
+$z-base: 0;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-overlay: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+$z-toast: 800;
+$z-max: 9999;
+
+// ============================================================================
+// TRANSITIONS
+// ============================================================================
+$duration-instant: 0ms;
+$duration-fast: 100ms;
+$duration-normal: 150ms;
+$duration-slow: 200ms;
+$duration-slower: 400ms;
+
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ============================================================================
+// BREAKPOINTS
+// ============================================================================
+$breakpoint-xs: 360px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// ============================================================================
+// CONTAINER WIDTHS
+// ============================================================================
+$container-xs: 20rem;
+$container-sm: 24rem;
+$container-md: 28rem;
+$container-lg: 32rem;
+$container-xl: 36rem;
+$container-2xl: 42rem;
+$container-full: 100%;

@@ -1,0 +1,285 @@
+// ===================
+// © AngelaMos | 2026
+// evaluate.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: $space-10 $space-6 $space-16;
+  @include flex-column;
+  gap: $space-6;
+  animation: rise $duration-slower $ease-out both;
+
+  @include breakpoint-down('sm') {
+    padding: $space-6 $space-4 $space-12;
+  }
+}
+
+.head {
+  @include flex-between;
+  align-items: flex-end;
+  gap: $space-4;
+  border-bottom: 1px solid $border-default;
+  padding-bottom: $space-5;
+}
+
+.kicker {
+  @include mono-label;
+  color: $accent;
+}
+
+.title {
+  @include display-heading;
+  font-size: clamp($font-size-4xl, 8vw, $font-size-6xl);
+  margin-top: $space-2;
+}
+
+.histLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  @include mono-label;
+  color: $text-light;
+  text-decoration: none;
+  white-space: nowrap;
+  @include transition-fast;
+
+  @include hover {
+    color: $accent;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.explainer {
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $text-lighter;
+  max-width: 60ch;
+}
+
+// ---- dropzone ----
+.dropzone {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 14rem;
+  border: 1px dashed $border-strong;
+  background: $bg-card;
+  @include flex-center;
+  padding: $space-8;
+  @include transition-fast;
+
+  @include hover {
+    border-color: $text-lighter;
+    background: $bg-surface-75;
+  }
+
+  &.dragging {
+    border-color: $accent;
+    border-style: solid;
+    background: $accent-faint;
+  }
+
+  &.loaded {
+    border-style: solid;
+    border-color: $border-default;
+  }
+}
+
+.fileInput {
+  display: none;
+}
+
+.dropInner {
+  @include flex-column-center;
+  gap: $space-3;
+  text-align: center;
+}
+
+.uploadIcon {
+  width: 28px;
+  height: 28px;
+  color: $text-lighter;
+}
+
+.dropText {
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  color: $text-default;
+}
+
+.dropHint {
+  @include mono-label;
+  color: $text-muted;
+}
+
+.fileCard {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  width: 100%;
+}
+
+.fileIcon {
+  width: 28px;
+  height: 28px;
+  color: $accent;
+  flex-shrink: 0;
+}
+
+.fileMeta {
+  @include flex-column;
+  gap: $space-1;
+  min-width: 0;
+  flex: 1;
+}
+
+.fileName {
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  color: $text-default;
+  @include truncate;
+}
+
+.fileSize {
+  @include mono-label;
+}
+
+.clearBtn {
+  @include flex-center;
+  width: $space-8;
+  height: $space-8;
+  border: 1px solid $border-default;
+  color: $text-lighter;
+  flex-shrink: 0;
+  @include transition-fast;
+
+  @include hover {
+    border-color: $accent;
+    color: $accent;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.evaluateBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2-5;
+  padding: $space-4;
+  background: $accent;
+  color: $white;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  @include transition-fast;
+
+  @include hover {
+    background: $accent-strong;
+  }
+
+  &:disabled {
+    background: $bg-surface-200;
+    color: $text-muted;
+  }
+}
+
+// ---- analyzing ----
+.analyzing {
+  position: relative;
+  overflow: hidden;
+  min-height: 18rem;
+  border: 1px solid $border-default;
+  background: $bg-card;
+  @include flex-column-center;
+  gap: $space-4;
+  padding: $space-10;
+  text-align: center;
+}
+
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: $accent;
+  box-shadow: 0 0 18px 1px $accent;
+  animation: scan 1.6s $ease-in-out infinite;
+}
+
+.analyzingFile {
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  color: $text-light;
+  @include truncate;
+  max-width: 100%;
+}
+
+.analyzingStatus {
+  font-family: $font-mono;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  color: $text-default;
+  animation: pulse 1.4s $ease-in-out infinite;
+}
+
+.analyzingNote {
+  @include mono-label;
+  color: $text-muted;
+}
+
+@keyframes scan {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

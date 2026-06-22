@@ -1,0 +1,29 @@
+# ©AngelaMos | 2026
+# .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Node
+node_modules/
+dist/
+.pnpm-store/
+.vite/
+
+# Environment / secrets
+# Production secrets are never committed. .env.development is intentionally
+# tracked (local dev keys only) and .env.example documents the shape.
+.env
+.env.local
+.env.*.local
+
+# OS / editor
+.DS_Store
+*.swp

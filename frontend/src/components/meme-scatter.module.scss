@@ -1,0 +1,81 @@
+// ===================
+// © AngelaMos | 2026
+// meme-scatter.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+// Draggable wrapper. Empty space stays click-through (layer is none); each
+// meme opts back in so it can be grabbed and flung.
+.item {
+  position: absolute;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+  animation: bob 6s ease-in-out infinite;
+}
+
+.item.dragging {
+  animation: none;
+  z-index: 3;
+  cursor: grabbing;
+}
+
+.item.snapping {
+  transition: transform 0.25s ease-out;
+}
+
+.item.flung {
+  transition:
+    transform 0.5s ease-out,
+    opacity 0.5s ease-out;
+  opacity: 0;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: $radius-sm;
+  opacity: 0.88;
+  object-fit: cover;
+  box-shadow: 0 4px 24px hsl(0, 0%, 0%, 0.55);
+  border: 1px solid hsl(0, 0%, 0%, 0.4);
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.pinned {
+  position: fixed;
+  left: $space-4;
+  bottom: $space-4;
+  width: 200px;
+  border-radius: $radius-sm;
+  opacity: 0.9;
+  object-fit: cover;
+  transform: rotate(-3deg);
+  box-shadow: 0 4px 24px hsl(0, 0%, 0%, 0.6);
+  border: 1px solid $accent-dim;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -12px;
+  }
+}

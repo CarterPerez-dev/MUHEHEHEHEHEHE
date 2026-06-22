@@ -1,0 +1,350 @@
+// ===================
+// © AngelaMos | 2026
+// landing.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.page {
+  min-height: 100dvh;
+  background: $bg-page;
+  color: $text-default;
+  display: flex;
+  padding: $space-5;
+
+  @include breakpoint-down('md') {
+    padding: $space-3;
+  }
+}
+
+.frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $border-default;
+  position: relative;
+  overflow: hidden;
+  animation: rise $duration-slower $ease-out both;
+}
+
+// ---- top spec bar ----
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: $space-3 $space-5;
+  border-bottom: 1px solid $border-default;
+
+  @include breakpoint-down('sm') {
+    padding: $space-3;
+  }
+}
+
+.serial,
+.ver,
+.topMid {
+  @include mono-label;
+}
+
+.ver {
+  text-align: right;
+}
+
+.topMid {
+  text-align: center;
+  color: $text-muted;
+
+  @include breakpoint-down('sm') {
+    display: none;
+  }
+}
+
+// ---- hero ----
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: $space-12;
+  padding: $space-16 $space-12;
+  align-items: center;
+
+  @include breakpoint-down('lg') {
+    grid-template-columns: 1fr;
+    gap: $space-10;
+    padding: $space-12 $space-8;
+  }
+
+  @include breakpoint-down('sm') {
+    padding: $space-8 $space-5;
+  }
+}
+
+.heroLeft {
+  @include flex-column;
+  gap: $space-6;
+  min-width: 0;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2-5;
+  @include mono-label;
+  color: $text-light;
+}
+
+.kickerMark {
+  flex-shrink: 0;
+}
+
+.wordmark {
+  @include display-heading;
+  font-size: clamp(4rem, 18vw, 11rem);
+  margin: -$space-2 0 $space-2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.04em;
+  transform: translateY(-0.04em);
+
+  svg {
+    width: clamp(2.4rem, 9vw, 5.5rem);
+    height: clamp(2.4rem, 9vw, 5.5rem);
+    animation: spin 28s linear infinite;
+  }
+}
+
+.lede {
+  font-family: $font-display;
+  font-weight: $font-weight-semibold;
+  font-size: clamp($font-size-xl, 3vw, $font-size-3xl);
+  letter-spacing: $tracking-tight;
+  color: $text-default;
+  line-height: $line-height-tight;
+}
+
+.sub {
+  max-width: 46ch;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $text-lighter;
+}
+
+.actions {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-2;
+  flex-wrap: wrap;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2-5;
+  padding: $space-3-5 $space-6;
+  background: $accent;
+  color: $white;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  text-decoration: none;
+  @include transition-fast;
+
+  @include hover {
+    background: $accent-strong;
+  }
+
+  svg {
+    transition: transform $duration-normal $ease-out;
+  }
+
+  @include hover {
+    svg {
+      transform: translateX(3px);
+    }
+  }
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-3-5 $space-6;
+  border: 1px solid $border-strong;
+  color: $text-default;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  text-decoration: none;
+  @include transition-fast;
+
+  @include hover {
+    border-color: $text-light;
+    background: $bg-surface-100;
+  }
+}
+
+// ---- right spec sheet ----
+.heroRight {
+  @include flex-column;
+  gap: $space-4;
+  border-left: 1px solid $border-default;
+  padding-left: $space-8;
+
+  @include breakpoint-down('lg') {
+    border-left: 0;
+    border-top: 1px solid $border-default;
+    padding-left: 0;
+    padding-top: $space-8;
+  }
+}
+
+.specHead {
+  @include mono-label;
+  color: $accent;
+}
+
+.metrics {
+  list-style: none;
+  @include flex-column;
+}
+
+.metric {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: $space-3;
+  padding: $space-3 0;
+  border-bottom: 1px solid $border-muted;
+}
+
+.metricIndex {
+  font-family: $font-mono;
+  font-size: $font-size-2xs;
+  color: $text-muted;
+}
+
+.metricLabel {
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  color: $text-light;
+}
+
+.metricValue {
+  font-family: $font-mono;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $text-default;
+  font-variant-numeric: tabular-nums;
+}
+
+.metricTotal {
+  border-bottom: 0;
+  margin-top: $space-1;
+  padding-top: $space-4;
+  border-top: 1px solid $border-default;
+}
+
+.metricValueAccent {
+  font-family: $font-mono;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  font-size: $font-size-2xs;
+  line-height: $line-height-normal;
+  color: $text-muted;
+  max-width: 30ch;
+}
+
+// ---- footer ----
+.footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-5;
+  border-top: 1px solid $border-default;
+
+  @include breakpoint-down('sm') {
+    padding: $space-3;
+  }
+}
+
+.barcode {
+  width: 120px;
+  height: 16px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    $text-lighter 0,
+    $text-lighter 1px,
+    transparent 1px,
+    transparent 3px,
+    $text-lighter 3px,
+    $text-lighter 6px,
+    transparent 6px,
+    transparent 8px,
+    $text-lighter 8px,
+    $text-lighter 9px,
+    transparent 9px,
+    transparent 13px
+  );
+  opacity: 0.55;
+
+  @include breakpoint-down('sm') {
+    display: none;
+  }
+}
+
+.footMono {
+  @include mono-label;
+  text-align: center;
+  color: $text-muted;
+}
+
+.footLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $space-1-5;
+  @include mono-label;
+  color: $text-light;
+  text-decoration: none;
+  @include transition-fast;
+
+  @include hover {
+    color: $accent;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

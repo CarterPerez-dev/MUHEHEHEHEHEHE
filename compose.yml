@@ -1,0 +1,125 @@
+# =============================================================================
+# ©AngelaMos | 2026
+# compose.yml
+# =============================================================================
+# MERIT production stack: nginx (SPA + API proxy) -> FastAPI -> Postgres/Redis,
+# with a bundled Ollama for the local LLM fallback.
+# Project + container names are structural literals (never env vars).
+# For the Cloudflare tunnel:
+#   docker compose --env-file .env -f compose.yml -f cloudflared.compose.yml up -d
+# =============================================================================
+
+name: merit
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: infra/docker/nginx.prod
+    container_name: merit-nginx
+    ports:
+      - "${NGINX_HOST_PORT:-8441}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - merit
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: infra/docker/fastapi.prod
+    container_name: merit-api
+    image: merit-api:latest
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - RELOAD=false
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - merit
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: merit-ollama
+    volumes:
+      - merit_ollama:/root/.ollama
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: merit-ollama-pull
+    entrypoint: ["/bin/sh", "-c", "ollama pull ${FALLBACK_MODEL:-qwen2.5:3b} || true"]
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks:
+      - merit
+    restart: "no"
+
+  db:
+    image: postgres:18-alpine
+    container_name: merit-postgres
+    volumes:
+      - merit_pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-merit}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-merit}
+      - POSTGRES_DB=${POSTGRES_DB:-merit_db}
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-merit} -d ${POSTGRES_DB:-merit_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: merit-redis
+    volumes:
+      - merit_redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  merit:
+    driver: bridge
+
+volumes:
+  merit_pg:
+  merit_redis:
+  merit_ollama:

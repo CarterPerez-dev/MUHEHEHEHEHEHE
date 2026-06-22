@@ -1,0 +1,164 @@
+// ===================
+// © AngelaMos | 2026
+// settings.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.page {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: $space-10 $space-6 $space-16;
+  @include flex-column;
+  gap: $space-8;
+  animation: rise $duration-slower $ease-out both;
+
+  @include breakpoint-down('sm') {
+    padding: $space-6 $space-4 $space-12;
+  }
+}
+
+.head {
+  border-bottom: 1px solid $border-default;
+  padding-bottom: $space-5;
+}
+
+.kicker {
+  @include mono-label;
+  color: $accent;
+}
+
+.title {
+  @include display-heading;
+  font-size: clamp($font-size-4xl, 8vw, $font-size-6xl);
+  margin-top: $space-2;
+}
+
+.block {
+  @include flex-column;
+  gap: $space-4;
+}
+
+.blockLabel {
+  @include mono-label;
+  color: $text-lighter;
+}
+
+.idRow {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: $space-3;
+  align-items: baseline;
+  padding: $space-3 0;
+  border-bottom: 1px solid $border-muted;
+}
+
+.idKey {
+  @include mono-label;
+  color: $text-muted;
+}
+
+.idVal {
+  font-size: $font-size-sm;
+  color: $text-default;
+  @include truncate;
+}
+
+.idMono {
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $tracking-wide;
+  color: $text-light;
+}
+
+.form {
+  @include flex-column;
+  gap: $space-5;
+}
+
+.field {
+  @include flex-column;
+  gap: $space-2;
+}
+
+.label {
+  @include mono-label;
+  color: $text-light;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: $space-3 $space-10 $space-3 $space-3-5;
+  background: $bg-surface-100;
+  border: 1px solid $border-default;
+  color: $text-default;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $tracking-wide;
+  @include transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    background: $bg-surface-200;
+  }
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: $space-2-5;
+  transform: translateY(-50%);
+  @include flex-center;
+  width: $space-7;
+  height: $space-7;
+  color: $text-lighter;
+  @include transition-fast;
+
+  @include hover {
+    color: $text-default;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.submit {
+  align-self: flex-start;
+  margin-top: $space-1;
+  padding: $space-3 $space-6;
+  background: $accent;
+  color: $white;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  @include transition-fast;
+
+  @include hover {
+    background: $accent-strong;
+  }
+
+  &:disabled {
+    background: $bg-surface-300;
+    color: $text-lighter;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

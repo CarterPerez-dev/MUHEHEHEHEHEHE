@@ -1,0 +1,153 @@
+# =============================================================================
+# ©AngelaMos | 2026
+# dev.compose.yml
+# =============================================================================
+# MERIT development stack. Uses .env.development (different ports than prod).
+# Project + container names are structural literals with a -dev suffix, so dev
+# and prod are namespace-isolated by construction.
+#
+# Both the api and frontend INSTALL ON STARTUP (uv sync / pnpm install) so a
+# host edit to pyproject.toml or package.json is picked up on the next up/restart
+# without nuking volumes.
+# =============================================================================
+
+name: merit-dev
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: merit-dev-nginx
+    ports:
+      - "${NGINX_HOST_PORT:-8440}:80"
+    volumes:
+      - ./infra/nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - merit
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: infra/docker/fastapi.dev
+    container_name: merit-dev-api
+    command: sh -c "uv sync && uv run alembic upgrade head && uv run uvicorn app.__main__:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "${API_HOST_PORT:-5440}:8000"
+    volumes:
+      - ./backend:/app
+      - merit_dev_venv:/app/.venv
+    env_file:
+      - .env.development
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - RELOAD=true
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - merit
+    restart: unless-stopped
+
+  frontend:
+    image: node:22-alpine
+    container_name: merit-dev-frontend
+    working_dir: /app
+    command: sh -c "corepack enable && pnpm install && exec pnpm dev --host 0.0.0.0"
+    ports:
+      - "${FRONTEND_HOST_PORT:-9440}:5173"
+    volumes:
+      - ./frontend:/app
+      - merit_dev_node_modules:/app/node_modules
+    environment:
+      - CI=true
+      - VITE_API_URL=/api
+      - VITE_API_TARGET=http://api:8000
+    networks:
+      - merit
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: merit-dev-ollama
+    ports:
+      - "${OLLAMA_HOST_PORT:-11440}:11434"
+    volumes:
+      - merit_dev_ollama:/root/.ollama
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: merit-dev-ollama-pull
+    entrypoint: ["/bin/sh", "-c", "ollama pull ${FALLBACK_MODEL:-qwen2.5:3b} || true"]
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks:
+      - merit
+    restart: "no"
+
+  db:
+    image: postgres:18-alpine
+    container_name: merit-dev-postgres
+    ports:
+      - "${POSTGRES_HOST_PORT:-4440}:5432"
+    volumes:
+      - merit_dev_pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-merit}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-merit}
+      - POSTGRES_DB=${POSTGRES_DB:-merit_db}
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-merit} -d ${POSTGRES_DB:-merit_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: merit-dev-redis
+    ports:
+      - "${REDIS_HOST_PORT:-6440}:6379"
+    volumes:
+      - merit_dev_redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      - merit
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  merit:
+    driver: bridge
+
+volumes:
+  merit_dev_pg:
+  merit_dev_redis:
+  merit_dev_ollama:
+  merit_dev_venv:
+  merit_dev_node_modules:

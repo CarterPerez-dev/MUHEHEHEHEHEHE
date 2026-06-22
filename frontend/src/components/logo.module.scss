@@ -1,0 +1,27 @@
+// ===================
+// © AngelaMos | 2026
+// logo.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2-5;
+  user-select: none;
+}
+
+.mark {
+  flex-shrink: 0;
+}
+
+.word {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  font-size: $font-size-lg;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-default;
+  line-height: 1;
+}

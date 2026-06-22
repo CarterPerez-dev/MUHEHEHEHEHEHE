@@ -1,0 +1,39 @@
+// ===================
+// © AngelaMos | 2026
+// styles.scss
+// ===================
+
+@forward 'styles/tokens';
+@forward 'styles/fonts';
+@forward 'styles/mixins';
+
+@use 'styles/reset';
+@use 'styles/tokens' as *;
+@use 'styles/fonts' as *;
+
+body {
+  background-color: $bg-page;
+  color: $text-default;
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+}
+
+::selection {
+  background: $accent;
+  color: $white;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-page;
+}
+
+.app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

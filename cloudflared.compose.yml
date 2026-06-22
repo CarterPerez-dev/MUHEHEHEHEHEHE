@@ -1,0 +1,20 @@
+# =============================================================================
+# ©AngelaMos | 2026
+# cloudflared.compose.yml
+# =============================================================================
+# Cloudflare Tunnel for production. Point the tunnel's public hostname at
+# http://nginx:80 in the Cloudflare dashboard.
+# Usage:
+#   docker compose --env-file .env -f compose.yml -f cloudflared.compose.yml up -d
+# =============================================================================
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: merit-tunnel
+    command: tunnel run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - nginx
+    networks:
+      - merit
+    restart: unless-stopped

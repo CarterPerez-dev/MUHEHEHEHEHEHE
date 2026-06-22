@@ -1,0 +1,20 @@
+// ===================
+// © AngelaMos | 2026
+// _fonts.scss
+// ===================
+
+@use 'tokens' as *;
+
+// Archivo: a tight, industrial grotesque that pushes to weight 900 and an
+// Expanded width axis -- the display voice of the vector-minimalism posters.
+// JetBrains Mono: the technical micro-label voice (serials, scores, ISO dates).
+// Both are loaded in index.html via the Google Fonts <link>.
+
+$font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, sans-serif;
+
+$font-display: 'Archivo', 'Archivo Expanded', -apple-system, BlinkMacSystemFont,
+  'Segoe UI', sans-serif;
+
+$font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+  Consolas, 'Liberation Mono', monospace;

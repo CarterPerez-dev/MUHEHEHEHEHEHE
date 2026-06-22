@@ -1,0 +1,40 @@
+// ===================
+// © AngelaMos | 2026
+// repo-link.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.repo {
+  position: fixed;
+  right: $space-4;
+  bottom: $space-4;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-3;
+  background: hsl(0, 0%, 5%, 0.9);
+  border: 1px solid $border-strong;
+  border-radius: $radius-sm;
+  color: $text-light;
+  text-decoration: none;
+  font-family: $font-mono;
+  font-size: $font-size-2xs;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  pointer-events: auto;
+  @include transition-fast;
+
+  @include hover {
+    color: $text-default;
+    border-color: $accent;
+  }
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}

@@ -1,0 +1,202 @@
+// ===================
+// © AngelaMos | 2026
+// login.module.scss
+// ===================
+
+@use '@/styles' as *;
+
+.page {
+  min-height: 100dvh;
+  @include flex-center;
+  padding: $space-5;
+  background: $bg-page;
+}
+
+.panel {
+  width: 100%;
+  max-width: 26rem;
+  border: 1px solid $border-default;
+  background: $bg-card;
+  animation: rise $duration-slower $ease-out both;
+}
+
+.head {
+  @include flex-between;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $border-default;
+}
+
+.headLeft {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.back {
+  @include flex-center;
+  width: $space-7;
+  height: $space-7;
+  color: $text-lighter;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  text-decoration: none;
+  @include transition-fast;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @include hover {
+    color: $text-default;
+    border-color: $accent;
+  }
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.tag {
+  @include mono-label;
+}
+
+.body {
+  padding: $space-8 $space-6 $space-6;
+}
+
+.step {
+  @include mono-label;
+  color: $accent;
+}
+
+.title {
+  @include display-heading;
+  font-size: $font-size-5xl;
+  margin: $space-2 0 $space-7;
+}
+
+.form {
+  @include flex-column;
+  gap: $space-5;
+}
+
+.field {
+  @include flex-column;
+  gap: $space-2;
+}
+
+.label {
+  @include mono-label;
+  color: $text-light;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: $space-3 $space-3-5;
+  background: $bg-surface-100;
+  border: 1px solid $border-default;
+  color: $text-default;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $tracking-wide;
+  @include transition-fast;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    background: $bg-surface-200;
+  }
+}
+
+.inputWrapper .input {
+  padding-right: $space-10;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: $space-2-5;
+  transform: translateY(-50%);
+  @include flex-center;
+  width: $space-7;
+  height: $space-7;
+  color: $text-lighter;
+  @include transition-fast;
+
+  @include hover {
+    color: $text-default;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2-5;
+  margin-top: $space-2;
+  padding: $space-3-5;
+  background: $accent;
+  color: $white;
+  font-family: $font-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  letter-spacing: $tracking-mono;
+  text-transform: uppercase;
+  @include transition-fast;
+
+  @include hover {
+    background: $accent-strong;
+  }
+
+  &:disabled {
+    background: $bg-surface-300;
+    color: $text-lighter;
+  }
+}
+
+.foot {
+  @include flex-between;
+  padding: $space-4 $space-6;
+  border-top: 1px solid $border-default;
+}
+
+.footMono {
+  @include mono-label;
+  color: $text-muted;
+}
+
+.link {
+  @include mono-label;
+  color: $text-default;
+  text-decoration: none;
+  @include transition-fast;
+
+  @include hover {
+    color: $accent;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
