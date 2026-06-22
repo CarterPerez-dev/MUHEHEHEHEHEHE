@@ -1,0 +1,31 @@
+# ©AngelaMos | 2026
+# .dockerignore  (root build context — keep it lean)
+
+.git
+.gitignore
+
+# Python
+**/.venv
+**/venv
+**/__pycache__
+**/*.py[cod]
+**/.mypy_cache
+**/.ruff_cache
+**/.pytest_cache
+**/.ty_cache
+**/htmlcov
+**/.coverage
+
+# Node (the frontend image installs fresh inside the build)
+**/node_modules
+**/.pnpm-store
+**/.vite
+frontend/dist
+
+# Secrets / env (provided at runtime via env_file, never baked in)
+.env
+.env.*
+
+# Editor / OS
+**/.DS_Store
+*.log
